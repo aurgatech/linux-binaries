@@ -90,3 +90,45 @@ Run AURGA Viewer
 ```
 ./AURGAViewer
 ```
+
+### Error Handlings
+If the Linux distro (ClearOS, CentOS 5) uses lower libstdc++ versions, it might report errors when running AURGAViewer
+
+```
+/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found 
+```
+
+We could build gcc 5.4.0 to fix this issue.
+#### Build gcc 5.4.0
+
+```
+#wget https://ftp.gnu.org/gnu/gcc/gcc-5.4.0/gcc-5.4.0.tar.gz tar
+```
+```
+#tar xvf gcc-5.4.0.tar.gz 
+```
+```
+#cd gcc-5.4.0
+```
+```
+#./contrib/download_prerequisites
+```
+```
+#./configure --prefix=/usr/local --enable-checking=release --enable-languages=c,c++ --disable-multilib
+```
+```
+#make & make install
+```
+
+Copy libstdc++.so.6.0.21
+```
+#cp -Rf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64
+```
+```
+#rm -Rf /usr/lib64/libstdc++.so.6
+```
+```
+#ln -sf /usr/lib64/libstdc++.so.6.0.24 /usr/lib64/libstdc++.so.6
+```
+
+Now we could run the prebuilt binaries.
