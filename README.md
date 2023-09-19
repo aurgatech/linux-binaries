@@ -13,7 +13,7 @@ We have built x64 OpenGL3 and OpenGLES2 binaries with gcc/g++ 5.
 OpenGL3/AURGAViewer
 OpenGLES2/AURGAViewer
 ```
-The binaries work in Ubuntu 1604+/Fedora/CentOS/Linux Mint/Kali/PopOS and so on.
+The binaries work in Ubuntu 1604+/Debian/Fedora/CentOS/Linux Mint/Kali/PopOS/Deepin and so on.
 
 If the binaries don't work on your x64 machines. Please try to build ffmpeg and link AURGAViewer by yourself.
 
@@ -128,7 +128,7 @@ Copy libstdc++.so.6.0.21
 #rm -Rf /usr/lib64/libstdc++.so.6
 ```
 ```
-#ln -sf /usr/lib64/libstdc++.so.6.0.24 /usr/lib64/libstdc++.so.6
+#ln -sf /usr/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6
 ```
 
 Now we could run the prebuilt binaries.
