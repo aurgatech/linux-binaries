@@ -1,134 +1,83 @@
-# linux-binaries
-This repository contains linux (linkable) binaries for different linux distributions
+# New Linux App
 
-## Check if the computer supports OpenGL 3 or OpenGLES.
+Welcome to the new version of our Linux application, now powered by Chromium Embedded Framework (CEF) and compiled with gcc/g++7. This README will help you get started with setting up and running the application.
 
-```
-$ glxinfo | grep OpenGL
-```
+## Table of Contents
 
-## Prebuilt binaries
-We have built x64 OpenGL3 and OpenGLES2 binaries with gcc/g++ 5. 
-```
-OpenGL3/AURGAViewer
-OpenGLES2/AURGAViewer
-```
-The binaries work in Ubuntu 1604+/Debian/Fedora/CentOS/Linux Mint/Kali/PopOS/Deepin and so on.
+- [New Linux App](#new-linux-app)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+    - [Using the .deb Package](#using-the-deb-package)
+      - [Download the .deb Package:](#download-the-deb-package)
+      - [Install the Package:](#install-the-package)
+    - [Using the .tar.gz Archive](#using-the-targz-archive)
+      - [Download the .tar.gz Archive:](#download-the-targz-archive)
+      - [Extract the Archive:](#extract-the-archive)
+  - [Troubleshooting](#troubleshooting)
+    - [Additional Support](#additional-support)
+  - [Previous Versions](#previous-versions)
+## Introduction
 
-If the binaries don't work on your x64 machines. Please try to build ffmpeg and link AURGAViewer by yourself.
+This new version of our Linux app leverages the Chromium Embedded Framework (CEF) to provide a robust and modern web-based interface. CEF allows us to integrate web technologies seamlessly into our native application.
 
-## Add udev rules to access raw keyboard/mouse events in userspace
+## Prerequisites
 
-Create udev rules to allow AURGA Viewer to access raw keyboard/mouse device in userspace, otherwise input function will not work in app.
-```
-$sudo nano /etc/udev/rules.d/99-input-permissions.rules
-```
-Paste the line in 99-input-permissions.rules
-```
-KERNEL=="event*", SUBSYSTEM=="input", MODE="0666", GROUP="input"
-```
-Apply the rules:
-```
-$sudo udevadm control --reload-rules && sudo udevadm trigger
-```
+Before you begin, ensure you have the following installed on your system:
 
-## Install dependencies
-For Ubuntu & Debian
-```
-sudo apt install -y gcc g++ libudev-dev nasm
-```
+- **gcc/g++7**: The compiler used to build the application.
+- **CMake**: A tool to manage the build process.
+- **Git**: To clone the repository.
+- **Dependencies**:
+  - **glibc 2.27+**: The GNU C Library, providing core libraries essential for the application's runtime environment.
+  - **libfreetype6**: A library for rendering text using TrueType fonts, crucial for text display within the application.
+  - **libavformat/libavutil/libavcodec/libswscale**: Libraries from the FFmpeg project, enabling multimedia processing and playback capabilities.
+  - **libasound2**: The ALSA library for sound support, ensuring audio output is managed correctly.
+  - **libx11**: The X11 library, facilitating graphical interface interactions on Unix-like systems.
+  - **libgles2-mesa**: The Mesa OpenGL ES 2.0 library, supporting hardware-accelerated graphics rendering.
 
-If the graphics card supports OpenGLES2. 
+You can install the necessary tools and dependencies on a Debian-based system using the following commands:
 
-```
-sudo apt install -y libgles2-mesa-dev
-```
-
-For Redhat/CentOS/Fedora
-```
-sudo yum install -y gcc g++ make nasm libudev-devel mesa-libGL
+```sh
+sudo apt update
+sudo apt install libc6 libfreetype6 libavformat-dev libavutil-dev libavcodec-dev libswscale-dev libasound2 libx11-6 libgles2-mesa
 ```
 
-If the graphics card supports OpenGLES2. 
-```
-sudo yum install -y mesa-libGLES
+## Installation
+### Using the .deb Package
+
+#### Download the .deb Package:
+Download the .deb package from the releases page or the provided link.
+
+#### Install the Package:
+```sh
+sudo dpkg -i path/to/AURGA_Viewer_xxx.deb
 ```
 
+### Using the .tar.gz Archive
+#### Download the .tar.gz Archive:
+Download the .tar.gz archive from the releases page or the provided link.
 
-## Build ffmpeg
-```
-wget https://ffmpeg.org/releases/ffmpeg-6.0.tar.xz
-```
-
-```
-tar xvf ffmpeg-6.0.tar.xz
-```
-```
-./configure --prefix=output --enable-shared --enable-static --disable-programs --disable-ffmpeg --disable-ffplay --disable-ffprobe --disable-swresample --disable-postproc --disable-avfilter --disable-network  --disable-avdevice --disable-everything --enable-decoder=h264
+#### Extract the Archive:
+```sh
+tar -xzf path/to/AURGA_Viewer_xxx.gz
+cd AURGA_Viewer_xxx
+./aurgav
 ```
 
-```
-make & make install
-```
+## Troubleshooting
+- **Issue**: Application crashes on startup.
+  - **Solution**: Check the console output for more information. Ensure all prerequisites are installed. Run `sudo apt install build-essential cmake git libc6 libfreetype6 libavformat-dev libavutil-dev libavcodec-dev libswscale-dev libasound2 libx11-6 libgles2-mesa` if needed.
 
-Copy libavcodec.a libavutil.a libavformat.a libswscale.a from output/lib/ to AURGA Viewer's build folder with AURGAViewer.a & libmatoya.a.
+### Additional Support
 
-## Link AURGA Viewer
+If you encounter issues that are not resolved through the above steps, we recommend running the application and navigating to the home page. The home page provides detailed troubleshooting guides, FAQs, and links to our support forum where you can seek further assistance from our community and support team.
 
-### For OpenGL 3
 
-```
-gcc AURGAViewer.a libmatoya.a libavcodec.a libavutil.a libavformat.a libswscale.a -fPIC -ldl -lpthread -ludev -lm -lstdc++ -o AURGAViewer
-```
-### For OpenGLES
+## Previous Versions
+Notice: Previous versions of this application have been moved to the old_versions folder. If you need to access older releases, please navigate to this directory.
 
-```
-gcc AURGAViewer.a libmatoya.a libavcodec.a libavutil.a libavformat.a libswscale.a -fPIC -lEGL -lGLESv2 -lpthread -ludev -lm -lstdc++ -ldl -o AURGAViewer
-```
+---
 
-Run AURGA Viewer
-```
-./AURGAViewer
-```
-
-### Error Handlings
-If the Linux distro (ClearOS, CentOS 5) uses lower libstdc++ versions, it might report errors when running AURGAViewer
-
-```
-/lib64/libstdc++.so.6: version `GLIBCXX_3.4.21' not found 
-```
-
-We could build gcc 5.4.0 to fix this issue.
-#### Build gcc 5.4.0
-
-```
-#wget https://ftp.gnu.org/gnu/gcc/gcc-5.4.0/gcc-5.4.0.tar.gz tar
-```
-```
-#tar xvf gcc-5.4.0.tar.gz 
-```
-```
-#cd gcc-5.4.0
-```
-```
-#./contrib/download_prerequisites
-```
-```
-#./configure --prefix=/usr/local --enable-checking=release --enable-languages=c,c++ --disable-multilib
-```
-```
-#make & make install
-```
-
-Copy libstdc++.so.6.0.21
-```
-#cp -Rf /usr/local/lib64/libstdc++.so.6.0.21 /usr/lib64
-```
-```
-#rm -Rf /usr/lib64/libstdc++.so.6
-```
-```
-#ln -sf /usr/lib64/libstdc++.so.6.0.21 /usr/lib64/libstdc++.so.6
-```
-
-Now we could run the prebuilt binaries.
+Thank you for using our new Linux app! If you have any questions or need further assistance, feel free to open an issue on our GitHub repository.
