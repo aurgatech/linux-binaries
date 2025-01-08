@@ -52,18 +52,17 @@ Download the .deb package from the releases page or the provided link.
 
 #### Install the Package:
 ```sh
-sudo dpkg -i path/to/AURGA_Viewer_xxx.deb
+sudo dpkg -i path/to/AURGA.Viewer-xxx.deb
 ```
 
-### Using the .tar.gz Archive
-#### Download the .tar.gz Archive:
-Download the .tar.gz archive from the releases page or the provided link.
+### Using the .tar.xz Archive
+#### Download the .tar.xz Archive:
+Download the .tar.xz archive from the releases page or the provided link.
 
 #### Extract the Archive:
 ```sh
-tar -xzf path/to/AURGA_Viewer_xxx.gz
-cd AURGA_Viewer_xxx
-./aurgav
+tar xvf path/to/AURGA.Viewer-xxx.xz
+./aurgav/aurgav
 ```
 
 ## Troubleshooting
