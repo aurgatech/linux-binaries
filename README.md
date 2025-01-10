@@ -54,7 +54,10 @@ Download the .deb package from the releases page or the provided link.
 ```sh
 sudo dpkg -i path/to/AURGA.Viewer-xxx.deb
 ```
-
+run the application
+```sh
+aurgav
+```
 ### Using the .tar.xz Archive
 #### Download the .tar.xz Archive:
 Download the .tar.xz archive from the releases page or the provided link.
