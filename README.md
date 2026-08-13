@@ -35,13 +35,14 @@ Before you begin, ensure you have the following installed on your system:
   - **libavformat/libavutil/libavcodec/libswscale**: Libraries from the FFmpeg project, enabling multimedia processing and playback capabilities.
   - **libasound2**: The ALSA library for sound support, ensuring audio output is managed correctly.
   - **libx11**: The X11 library, facilitating graphical interface interactions on Unix-like systems.
+  - **libxi**: The X Input Extension library, required for proper mouse wheel and extended input device support.
   - **libgles2-mesa**: The Mesa OpenGL ES 2.0 library, supporting hardware-accelerated graphics rendering.
 
 You can install the necessary tools and dependencies on a Debian-based system using the following commands:
 
 ```sh
 sudo apt update
-sudo apt install libc6 libfreetype6 libavformat-dev libavutil-dev libavcodec-dev libswscale-dev libasound2 libx11-6 libgles2-mesa
+sudo apt install libc6 libfreetype6 libavformat-dev libavutil-dev libavcodec-dev libswscale-dev libasound2 libx11-6 libxi6 libgles2-mesa
 ```
 
 ## Installation
